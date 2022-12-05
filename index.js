@@ -9,18 +9,18 @@ const helmet = require('helmet')
 const xss = require('xss-clean')
 
 // BUAT ROUTE
+const portofolioRouter = require('./src/router/portofolio.routes')
 const userRouter = require('./src/router/user.routes')
 const perekrutRouter = require('./src/router/perekrut.routes')
 
 const app = express()
 try {
   app.use(express.static('public'))
-  app.use(express.static('public/photo_perekrut'))
-  app.use(express.static('photofoods'))
   app.use(helmet())
   app.use(bodyParser.json())
   app.use(xss())
   app.use(cors())
+  app.use(portofolioRouter)
   app.use(userRouter)
   app.use(perekrutRouter)
 } catch (error) {

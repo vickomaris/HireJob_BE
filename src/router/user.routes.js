@@ -1,5 +1,5 @@
 const express = require('express')
-const { list, detail, insert, update, destroy } = require('../controller/user.controller')
+const { list, detail, insert, update, destroy, detailname } = require('../controller/user.controller')
 const { register, login } = require('../controller/auth.controller')
 const router = express.Router()
 
@@ -9,8 +9,9 @@ const upload = require('../middleware/upload')
 const deleteFile = require('../middleware/delete_userfile')
 
 router
-  .get('/user', list)
+  .get('/user/', list)
   .get('/user/:id', detail)
+  .get('/user/search/:username', detailname)
   .post('/user/', insert)
   .put('/user/:id_user', update)
   .delete('/user/:id_user', destroy)

@@ -3,10 +3,11 @@ const { success, failed } = require('../helper/response')
 
 const userController = {
   list: (req, res) => {
+    // const username = req.params.username
     const sort = req.query.sort
     const asc = req.query.asc
     const page = parseInt(req.query.page) || 1
-    const limit = parseInt(req.query.limit) || 5
+    const limit = parseInt(req.query.limit) || 100
     const offset = (page - 1) * limit
     userModel.selectAll(sort, asc, limit, offset)
       .then((result) => {
@@ -21,6 +22,14 @@ const userController = {
       res.json(result.rows)
     }).catch((err) => {
       res.json(err)
+    })
+  },
+  detailname: (req, res) => {
+    const username = req.params.username
+    userModel.selectDetailName(username).then((result) => {
+      success(res, result, 'success', 'get all user success')
+    }).catch((err) => {
+      failed(res, err.message, 'failed', 'get all user failed')
     })
   },
   insert: (req, res) => {

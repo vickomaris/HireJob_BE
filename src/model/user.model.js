@@ -5,7 +5,7 @@ const userModel = {
   // router list
   selectAll: (sort, asc, limit, offset) => {
     return new Promise((resolve, reject) => {
-      db.query(`SELECT * FROM users ORDER BY ${sort} ${asc} LIMIT ${limit} OFFSET ${offset}`, (err, res) => {
+      db.query(`SELECT * FROM users ORDER BY ${sort} ${asc} LIMIT ${limit} OFFSET ${offset} `, (err, res) => {
         if (err) {
           reject(err)
         }
@@ -17,6 +17,17 @@ const userModel = {
   selectDetail: (id_user) => {
     return new Promise((resolve, reject) => {
       db.query(`SELECT * FROM users WHERE id_user=${id_user}`, (err, res) => {
+        if (err) {
+          reject(err)
+        }
+        resolve(res)
+      })
+    })
+  },
+  // lihat data by name
+  selectDetailName: (username) => {
+    return new Promise((resolve, reject) => {
+      db.query(`SELECT * FROM users WHERE lower(username) like lower('%${username}%')`, (err, res) => {
         if (err) {
           reject(err)
         }
@@ -39,14 +50,14 @@ const userModel = {
     gitlab = COALESCE ($11, gitlab),
     statusjob = COALESCE ($12, statusjob) 
     WHERE id_user = $13`,
-    [username, email, phone, password, jobdesk, city, company, description, ig, github, gitlab, statusjob, id_user],
-    (err, result) => {
-      if (err) {
-        reject(err)
-      } else {
-        resolve(result)
-      }
-    })
+      [username, email, phone, password, jobdesk, city, company, description, ig, github, gitlab, statusjob, id_user],
+      (err, result) => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(result)
+        }
+      })
   }),
 
   // router insert
