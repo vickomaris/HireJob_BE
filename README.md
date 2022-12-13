@@ -8,7 +8,7 @@
 - [Related Project](#related-project)
 - [Contributing](#contributing)
 
-# About The Project
+## About The Project
 This is a Back-End Hirejobs. This is built using Next JS and PostgreSQL.
 
 ## Technology Used
@@ -45,7 +45,7 @@ Run program with ```npm start```
 
 ## Related Project
 
-RESTful API for this web application, clone this for development HireJobs.\
+Front-End for this web application, clone this for development HireJobs.
 - [Frontend-HireJobs](https://github.com/vickomaris/HireJob_FE)
 
 
