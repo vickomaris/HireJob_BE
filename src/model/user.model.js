@@ -60,6 +60,16 @@ const userModel = {
       })
   }),
 
+  updatePhoto: (id_user, image) => new Promise((resolve, reject) => {
+    db.query(`UPDATE users SET image = '${image}' where id_user = ${id_user}`, (err, result) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(result)
+      }
+    })
+  }),
+
   // router insert
   store: (username, email, phone, password) => {
     return new Promise((resolve, reject) => {

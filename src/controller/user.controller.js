@@ -52,6 +52,17 @@ const userController = {
       failed(res, err.message, 'failed', 'update user failed')
     })
   },
+  updatePhoto: (req, res) => {
+    const id_user = req.params.id_user
+    const image = req.file.filename
+    userModel.updatePhoto(id_user, image).then((result) => {
+      success(res, result, 'success', 'update user success')
+      // console.log(res)
+    }).catch((err) => {
+      failed(res, err.message, 'failed', 'update user failed')
+    })
+  },
+
   destroy: (req, res) => {
     const { id_user } = req.params
     userModel
