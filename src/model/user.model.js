@@ -36,7 +36,7 @@ const userModel = {
     })
   },
   // update
-  update: (id_user, username, email, phone, password, jobdesk, city, company, description, ig, github, gitlab, statusjob) => new Promise((resolve, reject) => {
+  update: (id_user, username, email, phone, password, jobdesk, city, company, description, ig, github, gitlab, statusjob, skill) => new Promise((resolve, reject) => {
     db.query(`UPDATE users SET username = COALESCE ($1, username), 
     email = COALESCE ($2, email), 
     phone = COALESCE ($3, phone), 
@@ -48,16 +48,17 @@ const userModel = {
     ig = COALESCE ($9, ig), 
     github = COALESCE ($10, github), 
     gitlab = COALESCE ($11, gitlab),
-    statusjob = COALESCE ($12, statusjob) 
-    WHERE id_user = $13`,
-      [username, email, phone, password, jobdesk, city, company, description, ig, github, gitlab, statusjob, id_user],
-      (err, result) => {
-        if (err) {
-          reject(err)
-        } else {
-          resolve(result)
-        }
-      })
+    statusjob = COALESCE ($12, statusjob),
+    skill = COALESCE ($13, skill)
+    WHERE id_user = $14`,
+    [username, email, phone, password, jobdesk, city, company, description, ig, github, gitlab, statusjob, skill, id_user],
+    (err, result) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(result)
+      }
+    })
   }),
 
   updatePhoto: (id_user, image) => new Promise((resolve, reject) => {

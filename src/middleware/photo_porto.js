@@ -25,13 +25,13 @@ const multerUpload = multer({
       }
       cb(error, false)
     }
-  },
-  limits: { fileSize: 2 * 1024 * 1024 }// 1mb
+  }
+  // limits: { fileSize: 2 * 1024 * 1024 }// 1mb
 })
 
 // untuk middleware
 const upload = (req, res, next) => {
-  const multerSingle = multerUpload.single('image')
+  const multerSingle = multerUpload.single('imageporto')
   multerSingle(req, res, (err) => {
     if (err) {
       res.json({

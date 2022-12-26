@@ -1,15 +1,17 @@
 const portofolioModel = require('../model/portofolio.model')
 const { success, failed } = require('../helper/response')
 
+const cloudinary = require('../helper/cloudinary')
+
 const portofolioController = {
   list: (req, res) => {
     portofolioModel
       .getAllPortofolio()
       .then((result) => {
-        success(res, result.rows, 'success', 'Get All Flight List Success')
+        success(res, result.rows, 'success', 'Get All experience List Success')
       })
       .catch((err) => {
-        failed(res, err.message, 'failed', 'Failed to get all flight list')
+        failed(res, err.message, 'failed', 'Failed to get all experience list')
       })
   },
 
@@ -56,16 +58,21 @@ const portofolioController = {
         failed(res, err.message, 'failed', 'Failed to delete portofolio')
       })
   },
-  insert: (req, res) => {
+  insert: async (req, res) => {
     try {
+      const imageporto = await cloudinary.uploader.upload(req.file.path)
+
       const { name, linkrepo, type, id_user } = req.body
-      const image = req.file.filename
+      // const imageporto = req.file.filename
       const data = {
         name,
         linkrepo,
-        image,
+        imageporto,
         type,
-        id_user
+        id_user,
+        imageporto_url: imageporto.url,
+        imageporto_public_id: imageporto.public_id,
+        imageporto_secure_url: imageporto.secure_url
       }
       portofolioModel
         .insertPortofolio(data)
@@ -81,13 +88,13 @@ const portofolioController = {
   },
   updatePortofolio: (req, res) => {
     const id_porto = req.params.id
-    const image = req.file.filename
+    const imageporto = req.file.filename
     const { name, linkrepo, type } = req.body
     const data = {
       id_porto,
       name,
       linkrepo,
-      image,
+      imageporto,
       type
     }
     portofolioModel

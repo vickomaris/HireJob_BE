@@ -2,11 +2,11 @@ const fs = require('fs')
 const portofolioModel = require('../model/portofolio.model')
 
 const remove = async (req, res, next) => {
-  const id_porto = req.params.id_porto
+  const id_porto = req.params.id
   const data = await portofolioModel.getDetailPortofolio(id_porto)
   if (data) {
-    if (data.rows[0].image) {
-      const img = data.rows[0].image
+    if (data.rows[0].imageporto) {
+      const img = data.rows[0].imageporto
       if (img !== 'default.png') {
         fs.unlink(`./public/photo_porto/${img}`, (err) => {
           if (err) {

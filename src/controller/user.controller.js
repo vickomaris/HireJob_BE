@@ -42,10 +42,10 @@ const userController = {
     })
   },
   update: (req, res) => {
-    const { username, email, phone, password, jobdesk, city, company, description, ig, github, gitlab, statusjob } = req.body
+    const { username, email, phone, password, jobdesk, city, company, description, ig, github, gitlab, statusjob, skill } = req.body
     const id_user = req.params.id_user
     // const image = req.file.filename
-    userModel.update(id_user, username, email, phone, password, jobdesk, city, company, description, ig, github, gitlab, statusjob).then((result) => {
+    userModel.update(id_user, username, email, phone, password, jobdesk, city, company, description, ig, github, gitlab, statusjob, skill).then((result) => {
       success(res, null, 'success', 'update user success')
       console.log(res)
     }).catch((err) => {

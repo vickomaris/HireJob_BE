@@ -1,10 +1,10 @@
 const db = require('../config/db')
-const portofolioModel = {
-  // get all portofolio
-  getAllPortofolio: () => {
+const skillModel = {
+  // get all Skill
+  getAllSkill: () => {
     return new Promise((resolve, reject) => {
       db.query(
-        'SELECT * FROM portofolio join users on portofolio.id_user = users.id_user;',
+        'SELECT * FROM skilluser join users on skilluser.id_user = users.id_user;',
         (err, res) => {
           if (err) {
             reject(err)
@@ -15,11 +15,11 @@ const portofolioModel = {
     })
   },
 
-  // get all portofolio berdasarkan user
-  getAllPortofolioByUser: (id_user) => {
+  // get all Skill berdasarkan user
+  getAllSkillByUser: (id_user) => {
     return new Promise((resolve, reject) => {
       db.query(
-        `SELECT * FROM portofolio join users on portofolio.id_user = users.id_user WHERE portofolio.id_user = ${id_user};`,
+        `SELECT * FROM skilluser join users on skilluser.id_user = users.id_user WHERE skilluser.id_user =${id_user};`,
         (err, res) => {
           if (err) {
             reject(err)
@@ -30,11 +30,11 @@ const portofolioModel = {
     })
   },
 
-  // get detail portofolio
-  getDetailPortofolio: (id_porto) => {
+  // get detail Skill
+  getDetailSkill: (id_skill) => {
     return new Promise((resolve, reject) => {
       db.query(
-        `SELECT * FROM portofolio join users on portofolio.id_user = users.id_user WHERE id_porto='${id_porto}';`,
+        `SELECT * FROM skilluser join users on skilluser.id_user = users.id_user WHERE id_skill='${id_skill}';`,
         (err, res) => {
           if (err) {
             reject(err)
@@ -45,11 +45,11 @@ const portofolioModel = {
     })
   },
 
-  // delete portofolio
-  deletePortofolio: (id_porto) => {
+  // delete Skill
+  deleteSkill: (id_skill) => {
     return new Promise((resolve, reject) => {
       db.query(
-        `DELETE FROM portofolio WHERE id_porto='${id_porto}'`,
+        `DELETE FROM skilluser WHERE id_skill='${id_skill}'`,
         (err, res) => {
           if (err) {
             reject(err)
@@ -60,11 +60,11 @@ const portofolioModel = {
     })
   },
 
-  // insert portofolio
-  insertPortofolio: (data) => {
+  // insert Skill
+  insertSkill: (data) => {
     return new Promise((resolve, reject) => {
       db.query(
-        `INSERT INTO portofolio ( name, linkrepo, imageporto, type, id_user, imageporto_url, imageporto_public_id, imageporto_secure_url) VALUES ('${data.name}', '${data.linkrepo}', '${data.imageporto}', ${data.type}, ${data.id_user}, '${imageporto_url}', '${imageporto_public_id}', '${imageporto_secure_url}');`,
+        `INSERT INTO skilluser (skill, id_user) VALUES ('${data.skill}', ${data.id_user});`,
         (err, res) => {
           if (err) {
             reject(err)
@@ -75,8 +75,8 @@ const portofolioModel = {
     })
   },
 
-  // update portofolio
-  updatePortofolio: ({
+  // update Skill
+  updateSKill: ({
     id_porto,
     name,
     linkrepo,
@@ -85,7 +85,7 @@ const portofolioModel = {
   }) => {
     return new Promise((resolve, reject) => {
       db.query(
-        `UPDATE portofolio SET 
+        `UPDATE skilluser SET 
         name = COALESCE($1, name), 
         linkrepo = COALESCE($2, linkrepo), 
         imageporto = COALESCE($3, imageporto), 
@@ -104,4 +104,4 @@ const portofolioModel = {
   }
 }
 
-module.exports = portofolioModel
+module.exports = skillModel
