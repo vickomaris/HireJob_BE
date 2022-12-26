@@ -62,9 +62,11 @@ const portofolioModel = {
 
   // insert portofolio
   insertPortofolio: (data) => {
+    console.log(data)
     return new Promise((resolve, reject) => {
       db.query(
-        `INSERT INTO portofolio ( name, linkrepo, imageporto, type, id_user, imageporto_url, imageporto_public_id, imageporto_secure_url) VALUES ('${data.name}', '${data.linkrepo}', '${data.imageporto}', ${data.type}, ${data.id_user}, '${imageporto_url}', '${imageporto_public_id}', '${imageporto_secure_url}');`,
+        `INSERT INTO portofolio ( name, linkrepo, imageporto, type, id_user, imageporto_url, imageporto_public_id, imageporto_secure_url) VALUES ('${data.name}', '${data.linkrepo}', '${data.imageporto}', ${data.type}, ${data.id_user}, 
+        '${data.imageporto_url}', '${data.imageporto_public_id}', '${data.imageporto_secure_url}');`,
         (err, res) => {
           if (err) {
             reject(err)

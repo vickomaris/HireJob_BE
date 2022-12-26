@@ -1,6 +1,8 @@
 const userModel = require('../model/user.model')
 const { success, failed } = require('../helper/response')
 
+const cloudinary = require('../helper/cloudinary')
+
 const userController = {
   list: (req, res) => {
     // const username = req.params.username
@@ -52,10 +54,24 @@ const userController = {
       failed(res, err.message, 'failed', 'update user failed')
     })
   },
-  updatePhoto: (req, res) => {
+
+  updatePhoto: async (req, res) => {
+    let image
+    if (req.file) {
+      image = await cloudinary.uploader.upload(req.file.path)
+    }
     const id_user = req.params.id_user
-    const image = req.file.filename
-    userModel.updatePhoto(id_user, image).then((result) => {
+    // const image = req.file.filename
+    
+    const data = {
+      id_user: parseInt(id_user),
+      image,
+      image_url: image.url,
+      image_public_id: image.public_id,
+      image_secure_url: image.secure_url
+    }
+    console.log(data)
+    userModel.updatePhoto(data).then((result) => {
       success(res, result, 'success', 'update user success')
       // console.log(res)
     }).catch((err) => {

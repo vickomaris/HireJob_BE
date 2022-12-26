@@ -68,8 +68,8 @@ const portofolioController = {
         name,
         linkrepo,
         imageporto,
-        type,
-        id_user,
+        type: parseInt(type),
+        id_user: parseInt(id_user),
         imageporto_url: imageporto.url,
         imageporto_public_id: imageporto.public_id,
         imageporto_secure_url: imageporto.secure_url

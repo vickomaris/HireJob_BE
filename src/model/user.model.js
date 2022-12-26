@@ -61,8 +61,15 @@ const userModel = {
     })
   }),
 
-  updatePhoto: (id_user, image) => new Promise((resolve, reject) => {
-    db.query(`UPDATE users SET image = '${image}' where id_user = ${id_user}`, (err, result) => {
+  updatePhoto: ({ image, image_url, image_public_id, image_secure_url, id_user }) => new Promise((resolve, reject) => {
+    db.query(`UPDATE users SET
+    image = COALESCE ($1, image),
+    image_url = COALESCE ($2, image_url),
+    image_public_id = COALESCE ($3, image_public_id),
+    image_secure_url = COALESCE ($4, image_secure_url) 
+    WHERE id_user = $5`,
+    [image, image_url, image_public_id, image_secure_url, id_user],
+    (err, result) => {
       if (err) {
         reject(err)
       } else {

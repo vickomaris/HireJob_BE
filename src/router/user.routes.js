@@ -14,7 +14,7 @@ router
   .get('/user/search/:username', detailname)
   .post('/user/', insert)
   .put('/user/:id_user', update)
-  .put('/user/photo/:id_user', deleteFile, upload, updatePhoto)
+  .put('/user/photo/:id_user', upload, updatePhoto)
   .delete('/user/:id_user', destroy)
 
   // register
